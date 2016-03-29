@@ -9,7 +9,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/** This program will demonstrate two methods of converting date/time to formatted string 
+/** This program will demonstrate two methods of converting date/time objects to formatted string and two methods of formatted string to date/time objects.
+ * Also one method for performing Date/Time arithmetic, such 
+   //  as the number of months, days, minutes, etc., between two dates.
  *
  * @author NStokesBeamon
  */
@@ -39,6 +41,16 @@ public class DataUtilities {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
         String formattedDate = date.format(formatter);
         return formattedDate;
+    }
+     
+     public static void main(String[] args) {
+        DataUtilities dateUtil = new DataUtilities();
+        LocalDate date = LocalDate.now();
+        LocalDateTime date1 = LocalDateTime.now();
+        
+        System.out.println(dateUtil.dateToString(date, "MM-dd-yyyy"));
+        System.out.println(dateUtil.dateTimeToString(date1, "MM-dd-yyyy hh:mm"));
+         
     }
     
 }
