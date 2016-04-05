@@ -5,6 +5,7 @@
  */
 package student.lab;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -43,6 +44,48 @@ public class DataUtilities {
         return formattedDate;
     }
      
+     /**
+     * This Method takes a sting and a format string and creates a LocalDate Object.
+     * @param string the date you are creating
+     * @param dateFormat the format of the string you are providing.
+     * @return 
+     * @throws IllegalArgumentException if the length of the strings do not match.
+     */
+     
+    public LocalDate stringToLocalDate(String string, String dateFormat) throws IllegalArgumentException{
+            if (string.length() != dateFormat.length()){
+            throw new IllegalArgumentException();
+        }
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
+        LocalDate thisDate = LocalDate.parse(string, formatter);
+        return thisDate;
+    }
+    
+     /**
+     * This Method takes two strings of dates and a format of those two strings, it then
+ converts the strings into LocalDate objects and finds the difference in days between them.
+     * @param date1 String of first Date
+     * @param date2 String of Second Date
+     * @param dateFormat the format of your strings.
+     * @return the difference in Days.
+     * @throws IllegalArgumentException
+     */
+    
+    public long betweenTwoLocalDates(String date1, String date2, String dateFormat) throws IllegalArgumentException{
+        if( date1 == null || date2.isEmpty()){
+            throw new IllegalArgumentException();
+        }
+        
+        LocalDate thisDate = stringToLocalDate(date1, dateFormat);
+        LocalDate thisDate2 = stringToLocalDate(date2, dateFormat);
+                
+             
+        Duration dur = Duration.between(thisDate, thisDate2);
+        long days = (dur.toDays());
+        return days;
+    }
+     
      public static void main(String[] args) {
         DataUtilities dateUtil = new DataUtilities();
         LocalDate date = LocalDate.now();
@@ -50,7 +93,11 @@ public class DataUtilities {
         
         System.out.println(dateUtil.dateToString(date, "MM-dd-yyyy"));
         System.out.println(dateUtil.dateTimeToString(date1, "MM-dd-yyyy hh:mm"));
-         
+        
+        System.out.println(dateUtil.stringToLocalDate("03-18-2016", "MM-dd-yyyy"));
+        
+        System.out.println(dateUtil.betweenTwoLocalDates("03-26-2016", "03-31-2016", "MM-dd-yyyy") + " days.");
+        
     }
     
 }
